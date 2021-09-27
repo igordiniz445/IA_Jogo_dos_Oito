@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Jogo dos 8</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div class="flex">
+            <div class="start game">
+            </div>
+            <div class="goal game">
+            </div>
+            <div class="play game">
+            </div>
+        </div>
+        <script src="script/jogo.js"></script>
+        <script src="script/Puzzle.js"></script>
+        <script>
+            const start = new jogoDosOito('start')
+            const goal = new jogoDosOito('goal')
+            const play = new jogoDosOito('play')
+            start.draw()
+            goal.draw()
+            play.draw()
+            const p = new Puzzle(3, start.matriz, goal.matriz)
+            p.proccess()
+        </script>
+    </body>
+</html>
