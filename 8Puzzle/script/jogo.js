@@ -47,7 +47,7 @@ function shuffle(array) {
 }
 
 function setRandomStart () {
-    start.matriz = setRandomArr(size * size)
+    start.matriz = setRandomArr(10, start.matriz)
     // start.matriz = [
     //     [1, 2, 3],
     //     [0, 4, 5],
@@ -58,13 +58,15 @@ function setRandomStart () {
     play.draw()
 }
 
-function setRandomArr(size) {
-    let arr = []
-    for (let i = 0; i < size; i++) {
-        arr.push(i)
+function setRandomArr(it, matriz) {
+    let node = new Node(matriz, 0, 0)
+    const len = Math.round(Math.random() * it)
+    for (let i = 0; i < len; i++) {
+        let children = node.generateChild()
+        let action = Math.round(Math.random() * (children.length - 1))
+        node = children[action]
     }
-    arr = shuffle(arr)
-    return [ arr.slice(0, 3), arr.slice(3, 6), arr.slice(6, 9) ]
+    return node.data
 }
 
 function startPuzzle () {
@@ -78,28 +80,36 @@ function startPuzzle () {
     if (temp === true) {
         endTime = new Date().getTime()
         alert(`Terminou após ${endTime - startTime}ms`)
+        return true
     } else if (temp === false){
         alert('Falhou')
+        return false
     } else {
         play.matriz = temp
         play.draw()
+        return null
     }
 }
 
-function solvePuzzle () {
-    if (!puzzle.started || puzzle.finished) {
-        delete puzzle
-        puzzle = new Puzzle(3, start.matriz, goal.matriz)
-        startTime = new Date().getTime()
-        puzzle.initiate()
-    }
-    play.matriz = puzzle.solve()
-    play.draw()
-    if (puzzle.finished) {
-        endTime = new Date().getTime()
-        alert(`Terminou após ${endTime - startTime}ms`)
-    }
-    else alert('Falhou')
+async function solvePuzzle () {
+    // if (!puzzle.started || puzzle.finished) {
+    //     delete puzzle
+    //     puzzle = new Puzzle(3, start.matriz, goal.matriz)
+    //     startTime = new Date().getTime()
+    //     puzzle.initiate()
+    // }
+    // play.matriz = puzzle.solve()
+    // play.draw()
+    // if (puzzle.finished) {
+    //     endTime = new Date().getTime()
+    //     alert(`Terminou após ${endTime - startTime}ms`)
+    // }
+    // else alert('Falhou')
+    let temp
+    do {
+        temp = startPuzzle()
+        await new Promise(resolve => setTimeout(resolve, 100));
+    } while (temp === null)
 }
 
 const start = new jogoDosOito('start')

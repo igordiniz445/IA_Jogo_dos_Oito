@@ -86,7 +86,6 @@ class Puzzle {
         if (this.h(data.data, el.data) === 0) aux = true
       })
       if (!aux) this.open.push(data)
-      else console.log('Repetido, nao incluir')
     }
     // closes cur
     this.closed.push(cur)
