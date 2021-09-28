@@ -1,14 +1,15 @@
 
 .game {
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     background-color: cornflowerblue;
     color: white;
     border: 6px solid #2c3e50;
     border-radius: 10px;
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr) ;
-    flex-direction: column;
+    float: left;
+    margin-left: 20px;
 }
 
 .game > div{
@@ -22,6 +23,10 @@
     cursor: pointer;
 }
 
-.flex {
-    flex-direction: row;
+.tabuleiros{
+    height: 100vh;
+    width: auto;
+    background-color: aqua;
 }
+
+html, body {margin:0;padding:0;height:100%;}
