@@ -5,18 +5,30 @@
         <title>Jogo dos 8</title>
         <link rel="stylesheet" href="css/style.css">
     </head>
-    <body>
-        <div>
-            <button onclick="setRandomStart()">Aleatorio</button>
-            <button onclick="startPuzzle()">Jogar</button>
-            <button onclick="solvePuzzle()">Solve</button>
+    <body class="main">
+        <div class="title1">
+            <div class="teste">A*</div>
+        </div>
+        <div class="actions">
+            <button onclick="setRandomStart()" style="background-color: goldenrod;">Aleatorio</button>
+            <button onclick="startPuzzle()" style="background-color: greenyellow;">Jogar</button>
+            <button onclick="solvePuzzle()" style="background-color: cyan;">Solve</button>
         </div>
         <div class="tabuleiros">
-            <div class="start game">
+            <div class="title">
+                <div class="teste">Estado Inicial</div>
+                <div class="start game">
+                </div>
             </div>
-            <div class="goal game">
+            <div class="title">
+                <div class="teste">Estado Atual</div>
+                <div class="play game">
+                </div>
             </div>
-            <div class="play game">
+            <div class="title">
+                <div class="teste">Estado Final</div>
+                <div class="goal game">
+                </div>
             </div>
         </div>
         <script src="./script/Node.js"></script>

@@ -24,9 +24,39 @@
 }
 
 .tabuleiros{
-    height: 100vh;
     width: auto;
-    background-color: aqua;
+    justify-content: center;
+    display: flex;
+}
+
+.actions {
+    padding: 1.5rem;
+    width: auto;
+    justify-content: center;
+    display: flex;
+}
+
+.title {
+    width: auto;
+    justify-content: center;
+    display: flexbox;
+}
+
+.title1 {
+    width: auto;
+    justify-content: center;
+    display: flex;
+}
+
+.teste {
+}
+
+.main {
+    background-color: #f0f0f0;
+}
+
+button {
+    margin: 0 1rem;
 }
 
 html, body {margin:0;padding:0;height:100%;}
