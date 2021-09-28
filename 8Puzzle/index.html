@@ -6,6 +6,11 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+        <div>
+            <button onclick="setRandomStart()">Aleatorio</button>
+            <button onclick="startPuzzle()">Jogar</button>
+            <button onclick="solvePuzzle()">Solve</button>
+        </div>
         <div class="tabuleiros">
             <div class="start game">
             </div>
@@ -14,17 +19,10 @@
             <div class="play game">
             </div>
         </div>
-        <script src="script/jogo.js"></script>
-        <script type="module" src="script/Puzzle.js"></script>
+        <script src="./script/Node.js"></script>
+        <script src="./script/Puzzle.js"></script>
+        <script src="./script/jogo.js"></script>
         <script>
-            const start = new jogoDosOito('start')
-            const goal = new jogoDosOito('goal')
-            const play = new jogoDosOito('play')
-            start.draw()
-            goal.draw()
-            play.draw()
-            const p = new Puzzle(3, start.matriz, goal.matriz)
-            p.proccess()
         </script>
     </body>
 </html>

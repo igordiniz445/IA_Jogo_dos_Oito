@@ -1,5 +1,3 @@
-import Node from './Node'
-
 class Puzzle {
   constructor (size, start, goal) {
     // sets Puzzle size
@@ -12,19 +10,23 @@ class Puzzle {
     this.open = []
     // closed options
     this.closed = []
+    // control vars
+    this.started = false
+    this.finished = false
+    this.solution = undefined
   }
 
   // gets heuristc value
   f (start) {
-    return this.h(start.data) + start.level
+    return this.h(start.data, this.goal) + start.level
   }
 
   // gets Manhattan Distance
-  h (start) {
+  h (start, goal) {
     let temp = 0
-    for (const i in this.n) {
-      for (const j in this.n) {
-        if (start[i][j] != this.goal[i][j] && start[i][j] !== 0) {
+    for (let i = 0; i < this.n; i++) {
+      for (let j = 0; j < this.n; j++) {
+        if (start[i][j] != goal[i][j] && start[i][j] !== 0) {
           temp++
         }
       }
@@ -32,47 +34,69 @@ class Puzzle {
     return temp
   }
 
-  proccess () {
+  initiate () {
+    if (this.started) return
     this.start.fval = this.f(this.start)
-    this.open.push(start)
-    while (true) {
-      // picks best option
-      const cur = this.open[0]
-      // print
-      console.log("--------------------")
-      for (const i in cur.data) {
-        const data = cur.data[i]
-        let str = ""
-        for (const j in data) {
-          const val = data[j]
-          str += val + " "
-        }
-        console.log(str)
+    this.open = []
+    this.closed = []
+    this.open.push(this.start)
+    this.started = true
+  }
+
+  solve () {
+    let temp
+    do {
+      temp = this.proccess()
+    } while (temp !== true && temp !== false)
+    return this.solution.data
+  }
+
+  proccess () {
+    if (this.finished) return true
+    if (this.open.length === 0) return false
+    // picks best option
+    const cur = this.open[0]
+    // print
+    console.log("--------------------")
+    for (const i in cur.data) {
+      const data = cur.data[i]
+      let str = ""
+      for (const j in data) {
+        const val = data[j]
+        str += val + " "
       }
-      console.log("--------------------")
-      // end print
-      // checks if cur is goal
-      if (this.h(cur.data) == 0) {
-        break
-      }
-      // generate cur childs
-      const temp = cur.generateChild()
-      for (const i in temp) {
-        const data = temp[i]
-        data.fval = this.f(data)
-        this.open.push(data)
-      }
-      // closes cur
-      this.closed.push(cur)
-      delete this.open[0]
-      // sorts best available options
-      this.open.sort((a, b) => {
-        if (a.fval > b.fval) return 1
-        if (a.fval < b.fval) return -1
-        return 0
-      })
+      console.log(str)
     }
+    console.log("--------------------")
+    // end print
+    // checks if cur is goal
+    if (this.h(cur.data, this.goal) == 0) {
+      this.finished = true
+      this.solution = cur
+      return true
+    }
+    // generate cur childs
+    const temp = cur.generateChild()
+    for (const i in temp) {
+      const data = temp[i]
+      data.fval = this.f(data)
+      // only add to open if not already done
+      let aux = false
+      this.closed.map(el => {
+        if (this.h(data.data, el.data) === 0) aux = true
+      })
+      if (!aux) this.open.push(data)
+      else console.log('Repetido, nao incluir')
+    }
+    // closes cur
+    this.closed.push(cur)
+    delete this.open[0]
+    // sorts best available options
+    this.open.sort((a, b) => {
+      if (a.fval > b.fval) return 1
+      if (a.fval < b.fval) return -1
+      return 0
+    })
+    return this.open[0].data
   }
 }
-
-export default Puzzle
