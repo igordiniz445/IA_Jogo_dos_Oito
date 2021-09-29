@@ -28,13 +28,13 @@ class jogoDosOito {
 }
 
 function setRandomStart () {
-    startAStar.matriz = setRandomArr(5, startAStar.matriz)
-    startBFS.matriz = startAStar.matriz
-    playAStar.matriz = startAStar.matriz
-    playBFS.matriz = startAStar.matriz
-    startAStar.draw()
+    start.matriz = setRandomArr(5, start.matriz)
+    start.matriz = start.matriz
+    playAStar.matriz = start.matriz
+    playBFS.matriz = start.matriz
+    start.draw()
     playAStar.draw()
-    startBFS.draw()
+    start.draw()
     playBFS.draw()
 }
 
@@ -57,7 +57,7 @@ function startPuzzle () {
 function startPuzzleAStar () {
     if (!puzzleAStar.started || puzzleAStar.finished) {
         delete puzzleAStar
-        puzzleAStar = new Puzzle(3, startAStar.matriz, goal.matriz)
+        puzzleAStar = new Puzzle(3, start.matriz, goal.matriz)
         puzzleAStar.initiate()
     }
     let temp = puzzleAStar.proccess()
@@ -75,7 +75,7 @@ function startPuzzleAStar () {
 function startPuzzleBFS () {
     if (!puzzleBFS.started || puzzleBFS.finished) {
         delete puzzleBFS
-        puzzleBFS = new BFS(3, startBFS.matriz, goal.matriz)
+        puzzleBFS = new BFS(3, start.matriz, goal.matriz)
         puzzleBFS.initiate()
     }
     let temp = puzzleBFS.proccess()
@@ -117,15 +117,13 @@ async function solvePuzzleBFS () {
     })
 }
 
-const startAStar = new jogoDosOito('startAStar')
-const startBFS = new jogoDosOito('startBFS')
+const start = new jogoDosOito('start')
 const goal = new jogoDosOito('goal')
 const playAStar = new jogoDosOito('playAStar')
 const playBFS = new jogoDosOito('playBFS')
-startAStar.draw()
-startBFS.draw()
+start.draw()
 goal.draw()
 playAStar.draw()
 playBFS.draw()
-let puzzleAStar = new Puzzle(3, startAStar.matriz, goal.matriz)
-let puzzleBFS = new BFS(3, startBFS.matriz, goal.matriz)
+let puzzleAStar = new Puzzle(3, start.matriz, goal.matriz)
+let puzzleBFS = new BFS(3, start.matriz, goal.matriz)
