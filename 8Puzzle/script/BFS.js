@@ -17,17 +17,13 @@ class BFS {
   }
 
   isGoal (cur, goal) {
-    console.log(cur, goal)
     for (let i = 0; i < this.n; i++) {
       for (let j = 0; j < this.n; j++) {
-        console.log(cur[i][j], goal[i][j], cur[i][j] !== goal[i][j])
         if (cur[i][j] !== goal[i][j]) {
-          console.log('diff')
           return false
         }
       }
     }
-    console.log('equal')
     return true
   }
 

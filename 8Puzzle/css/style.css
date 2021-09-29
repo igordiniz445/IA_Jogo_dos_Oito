@@ -27,7 +27,7 @@
     width: inherit;
     justify-content: center;
     text-align: center;
-    display: grid;
+    display: flex;
     align-self: center;
     grid-template: repeat(2, 1fr) / repeat(2, 1fr) ;
 }
@@ -44,7 +44,6 @@
     justify-content: center;
     flex-direction: column;
     float: left;
-
 }
 
 .title1 {

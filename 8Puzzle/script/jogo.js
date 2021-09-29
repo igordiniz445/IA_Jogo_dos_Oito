@@ -12,6 +12,7 @@ class jogoDosOito {
 
     makePlay (row, col) {
         if(this.matriz[row][col] !== 0){
+            console.log(`Cliquei em ${this.matriz[row][col]}`)
         }
     }
 
@@ -40,7 +41,7 @@ function setRandomStart () {
 
 function setRandomArr(it, matriz) {
     let node = new Node(matriz, 0, 0)
-    const len = Math.round(Math.random() * it)
+    const len = Math.round((Math.random() * it) + 1)
     for (let i = 0; i < len; i++) {
         let children = node.generateChild()
         let action = Math.round(Math.random() * (children.length - 1))
