@@ -35,14 +35,6 @@ class BFS {
     this.started = true
   }
 
-  solve () {
-    let temp
-    do {
-      temp = this.proccess()
-    } while (temp !== true && temp !== false)
-    return this.solution.data
-  }
-
   proccess () {
     if (this.finished) return true
     if (this.open.length === 0) return false

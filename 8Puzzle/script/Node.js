@@ -27,7 +27,7 @@ class Node {
   shuffle (puz, x1, y1, x2, y2) {
     if (x2 >= 0 && x2 < this.data.length && y2 >= 0 && y2 < this.data.length) {
       let temp_puz = []
-      temp_puz = this.copy(puz)
+      temp_puz = puz.map(el => el.map(element => element))
       const temp = temp_puz[x2][y2]
       temp_puz[x2][y2] = temp_puz[x1][y1]
       temp_puz[x1][y1] = temp
@@ -35,18 +35,6 @@ class Node {
     } else {
       return null
     }
-  }
-
-  copy (root) {
-    const temp = []
-    for (let i in root) {
-      const t = []
-      for (let j in root[i]) {
-        t.push(root[i][j])
-      }
-      temp.push(t)
-    }
-    return temp
   }
 
   // finds blank in data

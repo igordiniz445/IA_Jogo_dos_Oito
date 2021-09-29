@@ -43,21 +43,13 @@ class Puzzle {
     this.started = true
   }
 
-  solve () {
-    let temp
-    do {
-      temp = this.proccess()
-    } while (temp !== true && temp !== false)
-    return this.solution.data
-  }
-
   proccess () {
     if (this.finished) return true
     if (this.open.length === 0) return false
     // picks best option
     const cur = this.open[0]
     // checks if cur is goal
-    if (this.h(cur.data, this.goal) == 0) {
+    if (cur.fval === cur.level) {
       this.finished = true
       this.solution = cur
       return true

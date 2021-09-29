@@ -10,33 +10,16 @@ class jogoDosOito {
         ]
     }
 
-    makePlay (row, col) {
-        if(this.matriz[row][col] !== 0){
-            console.log(`Cliquei em ${this.matriz[row][col]}`)
-        }
-    }
-
     draw () {
         let content = ''
         for(var row=0 ; row <size ;row++){
             for(var col=0 ; col < size ; col++){
-                content +=`<div onclick="${this.container_element.classList[0]}.makePlay(${row}, ${col})">${this.matriz[row][col]}</div>`
+                content +=`<div>${this.matriz[row][col]}</div>`
             }
         }
 
         this.container_element.innerHTML = content
     }
-}
-
-function setRandomStart () {
-    start.matriz = setRandomArr(5, start.matriz)
-    start.matriz = start.matriz
-    playAStar.matriz = start.matriz
-    playBFS.matriz = start.matriz
-    start.draw()
-    playAStar.draw()
-    start.draw()
-    playBFS.draw()
 }
 
 function setRandomArr(it, matriz) {
@@ -48,6 +31,17 @@ function setRandomArr(it, matriz) {
         node = children[action]
     }
     return node.data
+}
+
+function setRandomStart () {
+    start.matriz = setRandomArr(5, start.matriz)
+    start.matriz = start.matriz
+    playAStar.matriz = start.matriz
+    playBFS.matriz = start.matriz
+    start.draw()
+    playAStar.draw()
+    start.draw()
+    playBFS.draw()
 }
 
 function startPuzzle () {
@@ -120,11 +114,15 @@ async function solvePuzzleBFS () {
 
 const start = new jogoDosOito('start')
 const goal = new jogoDosOito('goal')
+
 const playAStar = new jogoDosOito('playAStar')
 const playBFS = new jogoDosOito('playBFS')
+
 start.draw()
 goal.draw()
+
 playAStar.draw()
 playBFS.draw()
+
 let puzzleAStar = new Puzzle(3, start.matriz, goal.matriz)
 let puzzleBFS = new BFS(3, start.matriz, goal.matriz)
