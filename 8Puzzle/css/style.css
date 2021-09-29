@@ -27,8 +27,9 @@
     width: inherit;
     justify-content: center;
     text-align: center;
-    display: flex;
+    display: grid;
     align-self: center;
+    grid-template: repeat(2, 1fr) / repeat(2, 1fr) ;
 }
 
 .actions {
@@ -43,6 +44,7 @@
     justify-content: center;
     flex-direction: column;
     float: left;
+
 }
 
 .title1 {
