@@ -12,7 +12,6 @@ class jogoDosOito {
 
     makePlay (row, col) {
         if(this.matriz[row][col] !== 0){
-            console.log("Cliquei no numero: ",this.matriz[row][col])
         }
     }
 
@@ -29,15 +28,14 @@ class jogoDosOito {
 }
 
 function setRandomStart () {
-    start.matriz = setRandomArr(10, start.matriz)
-    // start.matriz = [
-    //     [1, 2, 3],
-    //     [0, 4, 5],
-    //     [6, 7, 8]
-    // ]
-    play.matriz = start.matriz
-    start.draw()
-    play.draw()
+    startAStar.matriz = setRandomArr(5, startAStar.matriz)
+    startBFS.matriz = startAStar.matriz
+    playAStar.matriz = startAStar.matriz
+    playBFS.matriz = startAStar.matriz
+    startAStar.draw()
+    playAStar.draw()
+    startBFS.draw()
+    playBFS.draw()
 }
 
 function setRandomArr(it, matriz) {
@@ -52,54 +50,82 @@ function setRandomArr(it, matriz) {
 }
 
 function startPuzzle () {
-    if (!puzzle.started || puzzle.finished) {
-        delete puzzle
-        puzzle = new Puzzle(3, start.matriz, goal.matriz)
-        startTime = new Date().getTime()
-        puzzle.initiate()
+    this.startPuzzleAStar()
+    this.startPuzzleBFS()
+}
+
+function startPuzzleAStar () {
+    if (!puzzleAStar.started || puzzleAStar.finished) {
+        delete puzzleAStar
+        puzzleAStar = new Puzzle(3, startAStar.matriz, goal.matriz)
+        puzzleAStar.initiate()
     }
-    let temp = puzzle.proccess()
+    let temp = puzzleAStar.proccess()
     if (temp === true) {
-        endTime = new Date().getTime()
-        alert(`Terminou após ${endTime - startTime}ms`)
         return true
     } else if (temp === false){
-        alert('Falhou')
         return false
     } else {
-        play.matriz = temp
-        play.draw()
+        playAStar.matriz = temp
+        playAStar.draw()
         return null
     }
 }
 
-async function solvePuzzle () {
-    // if (!puzzle.started || puzzle.finished) {
-    //     delete puzzle
-    //     puzzle = new Puzzle(3, start.matriz, goal.matriz)
-    //     startTime = new Date().getTime()
-    //     puzzle.initiate()
-    // }
-    // play.matriz = puzzle.solve()
-    // play.draw()
-    // if (puzzle.finished) {
-    //     endTime = new Date().getTime()
-    //     alert(`Terminou após ${endTime - startTime}ms`)
-    // }
-    // else alert('Falhou')
-    let temp
-    do {
-        temp = startPuzzle()
-        await new Promise(resolve => setTimeout(resolve, 100));
-    } while (temp === null)
+function startPuzzleBFS () {
+    if (!puzzleBFS.started || puzzleBFS.finished) {
+        delete puzzleBFS
+        puzzleBFS = new BFS(3, startBFS.matriz, goal.matriz)
+        puzzleBFS.initiate()
+    }
+    let temp = puzzleBFS.proccess()
+    if (temp === true) {
+        console.log(temp)
+        return true
+    } else if (temp === false){
+        console.log(temp)
+        return false
+    } else {
+        playBFS.matriz = temp
+        playBFS.draw()
+        return null
+    }
 }
 
-const start = new jogoDosOito('start')
+function solvePuzzle () {
+    this.solvePuzzleAStar()
+    this.solvePuzzleBFS()
+}
+
+async function solvePuzzleAStar () {
+    return new Promise(async () => {
+        let temp
+        do {
+            temp = startPuzzleAStar()
+            await new Promise(resolve => setTimeout(resolve, 100));
+        } while (temp === null)
+    })
+}
+
+async function solvePuzzleBFS () {
+    return new Promise(async () => {
+        let temp
+        do {
+            temp = startPuzzleBFS()
+            await new Promise(resolve => setTimeout(resolve, 100));
+        } while (temp === null)
+    })
+}
+
+const startAStar = new jogoDosOito('startAStar')
+const startBFS = new jogoDosOito('startBFS')
 const goal = new jogoDosOito('goal')
-const play = new jogoDosOito('play')
-start.draw()
+const playAStar = new jogoDosOito('playAStar')
+const playBFS = new jogoDosOito('playBFS')
+startAStar.draw()
+startBFS.draw()
 goal.draw()
-play.draw()
-let puzzle = new Puzzle(3, start.matriz, goal.matriz)
-let startTime
-let endTime
+playAStar.draw()
+playBFS.draw()
+let puzzleAStar = new Puzzle(3, startAStar.matriz, goal.matriz)
+let puzzleBFS = new BFS(3, startBFS.matriz, goal.matriz)

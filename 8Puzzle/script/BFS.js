@@ -1,4 +1,4 @@
-class Puzzle {
+class BFS {
   constructor (size, start, goal) {
     // sets Puzzle size
     this.n = size
@@ -16,27 +16,23 @@ class Puzzle {
     this.solution = undefined
   }
 
-  // gets heuristc value
-  f (start) {
-    return this.h(start.data, this.goal) + start.level
-  }
-
-  // gets Manhattan Distance
-  h (start, goal) {
-    let temp = 0
+  isGoal (cur, goal) {
+    console.log(cur, goal)
     for (let i = 0; i < this.n; i++) {
       for (let j = 0; j < this.n; j++) {
-        if (start[i][j] != goal[i][j] && start[i][j] !== 0) {
-          temp++
+        console.log(cur[i][j], goal[i][j], cur[i][j] !== goal[i][j])
+        if (cur[i][j] !== goal[i][j]) {
+          console.log('diff')
+          return false
         }
       }
     }
-    return temp
+    console.log('equal')
+    return true
   }
 
   initiate () {
     if (this.started) return
-    this.start.fval = this.f(this.start)
     this.open = []
     this.closed = []
     this.open.push(this.start)
@@ -57,7 +53,7 @@ class Puzzle {
     // picks best option
     const cur = this.open[0]
     // checks if cur is goal
-    if (this.h(cur.data, this.goal) == 0) {
+    if (this.isGoal(cur.data, this.goal)) {
       this.finished = true
       this.solution = cur
       return true
@@ -66,23 +62,20 @@ class Puzzle {
     const temp = cur.generateChild()
     for (const i in temp) {
       const data = temp[i]
-      data.fval = this.f(data)
       // only add to open if not already done
-      let aux = false
-      this.closed.map(el => {
-        if (this.h(data.data, el.data) === 0) aux = true
-      })
-      if (!aux) this.open.push(data)
+      let aux = true
+      for (let i in this.closed) {
+        let closed = this.closed[i]
+        if (this.isGoal(data.data, closed.data)) {
+          aux = false
+          break
+        }
+      }
+      if (aux) this.open.push(data)
     }
     // closes cur
     this.closed.push(cur)
-    delete this.open[0]
-    // sorts best available options
-    this.open.sort((a, b) => {
-      if (a.fval > b.fval) return 1
-      if (a.fval < b.fval) return -1
-      return 0
-    })
+    this.open.splice(0, 1)
     return this.open[0].data
   }
 }
