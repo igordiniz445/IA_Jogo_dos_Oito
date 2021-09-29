@@ -24,9 +24,11 @@
 }
 
 .tabuleiros{
-    width: auto;
+    width: inherit;
     justify-content: center;
+    text-align: center;
     display: flex;
+    align-self: center;
 }
 
 .actions {
@@ -39,7 +41,8 @@
 .title {
     width: auto;
     justify-content: center;
-    display: flexbox;
+    flex-direction: column;
+    float: left;
 }
 
 .title1 {
@@ -49,6 +52,7 @@
 }
 
 .teste {
+    text-align: center;
 }
 
 .main {
@@ -59,4 +63,16 @@ button {
     margin: 0 1rem;
 }
 
-html, body {margin:0;padding:0;height:100%;}
+.btnAleatorio{
+    background-color: #F57F17;
+}
+
+.btnJogar{
+    background-color: #01579B;
+}
+
+.btnSolve{
+    background-color: #1B5E20;
+}
+
+html, body {margin:0;padding:0;height:100%; width: 100%;}
